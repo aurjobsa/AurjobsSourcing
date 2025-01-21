@@ -1,0 +1,16 @@
+{
+  "name": "aurjobs",
+  "version": "1.0.0",
+  "description": "aurjobs sourcing portal ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Aurjobs",
+    "Sorcing",
+    "Portal"
+  ],
+  "author": "Aurjobs Team",
+  "license": "ISC"
+}
