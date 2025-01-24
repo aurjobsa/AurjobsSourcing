@@ -7,7 +7,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="relative bg-white shadow">
+    <nav className="relative z-50 bg-white shadow">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -32,7 +32,7 @@ const Navbar = () => {
               Pricing
             </ScrollLink>
             <div className="hidden md:block text-custom-deep-blue">|</div>
-            <ScrollLink to="pricing" smooth duration={500} className="text-custom-deep-blue cursor-pointer px-3 py-2 rounded-md text-md font-medium">
+            <ScrollLink to="contact" smooth duration={500} className="text-custom-deep-blue cursor-pointer px-3 py-2 rounded-md text-md font-medium">
               Contact
             </ScrollLink>
           </div>

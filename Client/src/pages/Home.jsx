@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
 import HeroSection from '../components/HeroSection'
 import HowItWorks from '../components/HowItWorks'
 import KeyFeatures from '../components/KeyFeatures'
@@ -15,17 +14,12 @@ const Home = () => {
   return (
     <>
     <Particle/>
-      <Navbar/>
       <HeroSection/>
       <HowItWorks/>
       <KeyFeatures/>
       <Pricing/>
       <Testimonials/>
-      
-    
       <GetStarted/>
-      
-      
       <FaqSection/>
       <ContactSection/>
       <Footer/>
