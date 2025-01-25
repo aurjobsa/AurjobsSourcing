@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CompanyLogin from "../components/CompanyLogin";
 import CompanyRegistration from "../components/CompanyRegistration";
 import MiddleComponent from "../components/MiddleComponent";
+import Navbar from "../components/Navbar";
 
 const Search = () => {
   const [translateX, setTranslateX] = useState(0); // For controlling horizontal scroll
@@ -28,6 +29,7 @@ const Search = () => {
 
   return (
     <div className="overflow-hidden">
+      <Navbar/>
       <div
         className={`flex h-screen transform duration-500 ease-in-out`}
         style={{

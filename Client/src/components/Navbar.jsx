@@ -7,7 +7,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="relative z-50 bg-white shadow">
+    <nav className="relative bg-white shadow">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -20,7 +20,7 @@ const Navbar = () => {
 
           {/* Desktop Links */}
           <div className="hidden lg:flex items-center space-x-4 md:space-x-6">
-            <RouterLink to="/register" className="text-custom-deep-blue px-3 py-2 rounded-md text-md font-medium">
+            <RouterLink to="/candidate_register" className="text-custom-deep-blue px-3 py-2 rounded-md text-md font-medium">
               Candidate Registration
             </RouterLink>
             <div className="hidden md:block text-custom-deep-blue">|</div>
@@ -70,7 +70,7 @@ const Navbar = () => {
             <RouterLink to="/" className="block text-custom-deep-blue hover:text-black px-3 py-2 rounded-md text-sm font-medium" onClick={() => setMenuOpen(false)}>
               Home
             </RouterLink>
-            <RouterLink to="/register" className="block text-custom-deep-blue hover:text-black px-3 py-2 rounded-md text-sm font-medium" onClick={() => setMenuOpen(false)}>
+            <RouterLink to="/candidate_register" className="block text-custom-deep-blue hover:text-black px-3 py-2 rounded-md text-sm font-medium" onClick={() => setMenuOpen(false)}>
               Candidate Registration
             </RouterLink>
             <RouterLink to="/search" className="block text-custom-deep-blue hover:text-black px-3 py-2 rounded-md text-sm font-medium" onClick={() => setMenuOpen(false)}>

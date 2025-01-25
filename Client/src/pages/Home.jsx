@@ -9,11 +9,13 @@ import FaqSection from '../components/FaqSection'
 import ContactSection from '../components/ContactSection'
 import Footer from '../components/Footer'
 import Particle from '../components/Particle'
+import Navbar from '../components/Navbar'
 
 const Home = () => {
   return (
     <>
     <Particle/>
+      <Navbar/>
       <HeroSection/>
       <HowItWorks/>
       <KeyFeatures/>
