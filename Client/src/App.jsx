@@ -4,15 +4,18 @@ import Particle from './components/Particle'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Register from './pages/Register'
 import Search from './pages/Search'
+import Navbar from './components/Navbar'
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
-        {/* <Particle /> */}
+        {/* <Particle />
+        <Navbar/> */}
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/register' element={<Register/>}/>
+          <Route path='/candidate_register' element={<Register/>}/>
+          <Route path='/candidate_login' element={<Register/>}/>
           <Route path='/search' element={<Search/>}/>
         </Routes>
       </BrowserRouter>

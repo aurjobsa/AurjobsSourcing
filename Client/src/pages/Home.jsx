@@ -14,7 +14,7 @@ import Particle from '../components/Particle'
 const Home = () => {
   return (
     <>
-    <Particle/>
+    {/* <Particle/> */}
       <Navbar/>
       <HeroSection/>
       <HowItWorks/>
