@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
 import HeroSection from '../components/HeroSection'
 import HowItWorks from '../components/HowItWorks'
 import KeyFeatures from '../components/KeyFeatures'
@@ -10,22 +9,19 @@ import FaqSection from '../components/FaqSection'
 import ContactSection from '../components/ContactSection'
 import Footer from '../components/Footer'
 import Particle from '../components/Particle'
+import Navbar from '../components/Navbar'
 
 const Home = () => {
   return (
     <>
-    {/* <Particle/> */}
+    <Particle/>
       <Navbar/>
       <HeroSection/>
       <HowItWorks/>
       <KeyFeatures/>
       <Pricing/>
       <Testimonials/>
-      
-    
       <GetStarted/>
-      
-      
       <FaqSection/>
       <ContactSection/>
       <Footer/>
