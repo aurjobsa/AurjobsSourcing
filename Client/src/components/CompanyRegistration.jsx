@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const CompanyRegistration = ({ navigateToLogin }) => {
   const [formData, setFormData] = useState({
@@ -179,12 +180,14 @@ const CompanyRegistration = ({ navigateToLogin }) => {
       <div className="text-center space-y-3 mt-4">
         <p className="text-gray-600">
           Already have an account?{" "}
+          <Link to={"/company_login"}>
           <span
             onClick={navigateToLogin}
             className="text-blue-500 hover:text-blue-600 font-medium cursor-pointer"
           >
             Log in
           </span>
+          </Link>
         </p>
         </div>
       </div>

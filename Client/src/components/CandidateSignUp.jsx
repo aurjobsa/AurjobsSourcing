@@ -284,7 +284,7 @@ const CandidateSignUp = ({ navigateToLogin }) => {
                                 <p className="text-xs sm:text-sm text-gray-600">
                                     Already have an account?{' '}
                                     <Link
-                                        // to="/candidate_login"
+                                        to="/candidate_login"
                                         onClick={navigateToLogin}
                                         className="text-blue-500 font-semibold hover:text-blue-600 transition-colors"
                                     >

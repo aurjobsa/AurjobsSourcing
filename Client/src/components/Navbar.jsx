@@ -20,11 +20,11 @@ const Navbar = () => {
 
           {/* Desktop Links */}
           <div className="hidden lg:flex items-center space-x-4 md:space-x-6">
-            <RouterLink to="/candidate_register" className="text-custom-deep-blue px-3 py-2 rounded-md text-md font-medium">
+            <RouterLink to="/candidate_login" className="text-custom-deep-blue px-3 py-2 rounded-md text-md font-medium">
               Candidate Registration
             </RouterLink>
             <div className="hidden md:block text-custom-deep-blue">|</div>
-            <RouterLink to="/search" className="text-custom-deep-blue cursor-pointer px-3 py-2 rounded-md text-md font-medium">
+            <RouterLink to="/company_login" className="text-custom-deep-blue cursor-pointer px-3 py-2 rounded-md text-md font-medium">
               Search Candidates
             </RouterLink>
             <div className="hidden md:block text-custom-deep-blue">|</div>
@@ -70,7 +70,7 @@ const Navbar = () => {
             <RouterLink to="/" className="block text-custom-deep-blue hover:text-black px-3 py-2 rounded-md text-sm font-medium" onClick={() => setMenuOpen(false)}>
               Home
             </RouterLink>
-            <RouterLink to="/candidate_register" className="block text-custom-deep-blue hover:text-black px-3 py-2 rounded-md text-sm font-medium" onClick={() => setMenuOpen(false)}>
+            <RouterLink to="/candidate_login" className="block text-custom-deep-blue hover:text-black px-3 py-2 rounded-md text-sm font-medium" onClick={() => setMenuOpen(false)}>
               Candidate Registration
             </RouterLink>
             <RouterLink to="/search" className="block text-custom-deep-blue hover:text-black px-3 py-2 rounded-md text-sm font-medium" onClick={() => setMenuOpen(false)}>
