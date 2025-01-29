@@ -80,12 +80,14 @@ const CandidateLogin = ({navigateToRegister}) => {
           <div className="text-center space-y-3">
             <p className="text-gray-600">
               Don't have an account?{" "}
+              <Link to="/candidate_register">
               <span
                 onClick={navigateToRegister}
                 className="text-blue-500 hover:text-blue-600 font-medium cursor-pointer"
               >
                 Create an account
               </span>
+              </Link>
             </p>
           </div>
         </form>

@@ -24,7 +24,7 @@ const ContactSection = () => {
             className="group inline-flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-lg transition-all duration-200"
           >
             <Mail className="w-5 h-5 text-white-800" />
-            <span className='text-white-800'>support@aurjobs.com</span>
+            <span className='text-white-800'>Info@Aurjobs.com</span>
           </button>
         </div>
       </div>
