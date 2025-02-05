@@ -8,6 +8,7 @@ import EducationDetails from './CandidateRegister/EducationDetails';
 import ExperienceDetails from './CandidateRegister/ExperienceDetails';
 import AdditionalDetails from './CandidateRegister/AdditionalDetails';
 import SignupProgressSteps from './CandidateRegister/SignupProgressSteps';
+import RegisterImage from '../assets/Signup2.png'
 
 const CandidateSignUp = ({ navigateToLogin }) => {
 
@@ -187,7 +188,15 @@ const CandidateSignUp = ({ navigateToLogin }) => {
 
 
         <div className="min-h-screen font-sans bg-white flex items-center justify-center py-12 px-4">
-            <div className="w-[95%] max-w-lg bg-white rounded-lg shadow-lg p-8 overflow-x-hidden max-h-[90vh] scrollbar-hide">
+            <div className='flex w-full max-w-6xl mx-auto shadow-lg rounded-lg overflow-hidden animate-slide-in'>
+            <div className="w-1/2 lg:flex justify-center items-center hidden">
+                      <img
+                        src={RegisterImage}
+                        alt="Register"
+                        className="w-100 h-100 object-cover"
+                      />
+                    </div>
+            <div className="w-[95%] max-w-lg bg-white rounded-lg p-8 overflow-x-hidden max-h-[90vh] scrollbar-hide">
                  <SignupProgressSteps currentStep={currentStep} 
                     progressSteps={progressSteps} />
                 
@@ -284,7 +293,7 @@ const CandidateSignUp = ({ navigateToLogin }) => {
                                 <p className="text-xs sm:text-sm text-gray-600">
                                     Already have an account?{' '}
                                     <Link
-                                        to="/candidate_login"
+                                        to="/candidate/login"
                                         onClick={navigateToLogin}
                                         className="text-blue-500 font-semibold hover:text-blue-600 transition-colors"
                                     >
@@ -297,8 +306,10 @@ const CandidateSignUp = ({ navigateToLogin }) => {
                 </div>
             </div>
         </div>
+        </div>
 
     )
 }
 
 export default CandidateSignUp
+
