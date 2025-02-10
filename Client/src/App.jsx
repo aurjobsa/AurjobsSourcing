@@ -8,6 +8,8 @@ import CompanyLogin from './components/CompanyLogin'
 import CompanyRegistration from './components/CompanyRegistration'
 import CandidateLogin from './components/CandidateLogin'
 import CandidateSignUp from './components/CandidateSignUp'
+import CandidateDashboard from './components/Dashboard/CandidateDashboard'
+import Dashboard from './components/Dashboard/Dashboard'
 
 // RouterContent component to handle refs and routing
 const RouterContent = ({ pricingRef, contactRef }) => {
@@ -18,7 +20,7 @@ const RouterContent = ({ pricingRef, contactRef }) => {
     },
     {
       path: '/dashboard',
-      element: <Register />
+      element: <Dashboard/>
     },
     {
       path: '/candidate',
@@ -50,6 +52,7 @@ const RouterContent = ({ pricingRef, contactRef }) => {
       path: '/search',
       element: <Search />
     }
+    
   ]
 
   const routes = useRoutes(routeConfig)
@@ -59,7 +62,7 @@ const RouterContent = ({ pricingRef, contactRef }) => {
 const App = () => {
   const pricingRef = useRef(null)
   const contactRef = useRef(null)
-  
+
   return (
     <div className="relative min-h-screen">
       <BrowserRouter>
@@ -67,7 +70,7 @@ const App = () => {
         <div className="fixed top-0 left-0 right-0 z-50">
           <Navbar pricingRef={pricingRef} contactRef={contactRef} />
         </div>
-        
+
         {/* Main content container with padding for fixed navbar */}
         <div className="relative pt-16">
           <RouterContent pricingRef={pricingRef} contactRef={contactRef} />
