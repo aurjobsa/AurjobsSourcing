@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
-import image from '../../assets/react.svg'
+import image from '../../assets/react.svg';
 import ExtraCurricularSection from './CandidateDetails/ExtraCurricularSection';
 import SkillsSection from './CandidateDetails/SkillsSection';
 import PersonalInfoSection from './CandidateDetails/PersonalInfoSection';
@@ -14,8 +14,7 @@ import PersonalInfoForm from './CandidateForms/PersonalInfoForm';
 import ExperienceForm from './CandidateForms/ExperienceForm';
 import EducationForm from './CandidateForms/EducationalForm';
 
-
-const CandidateDashboard = ({sectionRefs}) => {
+const CandidateDashboard = ({ sectionRefs }) => {
     const [userData, setUserData] = useState({
         personalInfo: {
             name: "John Doe",
@@ -57,6 +56,9 @@ const CandidateDashboard = ({sectionRefs}) => {
     const [editingSection, setEditingSection] = useState(null);
     const [editData, setEditData] = useState(null);
 
+    // Determine which section is currently active based on sectionRefs
+    const activeSection = Object.keys(sectionRefs)[0];
+
     const Modal = ({ children, onClose }) => (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
@@ -95,30 +97,32 @@ const CandidateDashboard = ({sectionRefs}) => {
         setEditData(null);
     };
 
+    // Render only the active section
+    const renderActiveSection = () => {
+        switch(activeSection) {
+            case 'profile':
+                return <PersonalInfoSection personalInfo={userData.personalInfo} onEdit={handleEdit} />;
+            case 'education':
+                return <EducationSection educationDetails={userData.educationDetails} onEdit={handleEdit} />;
+            case 'skills':
+                return <SkillsSection skills={userData.skills} onEdit={handleEdit} />;
+            case 'experience':
+                return <ExperienceSection experienceDetails={userData.experienceDetails} onEdit={handleEdit} />;
+            case 'accomplishments':
+                return <AccomplishmentsSection accomplishments={userData.accomplishments} onEdit={handleEdit} />;
+            case 'extraCurricular':
+                return <ExtraCurricularSection extraCurricular={userData.extraCurricular} onEdit={handleEdit} />;
+            default:
+                return null;
+        }
+    };
+
     return (
         <div className="max-w-4xl mx-auto p-6">
             <h1 className="text-3xl font-bold mb-8">Candidate Dashboard</h1>
 
             <div className="space-y-8">
-
-                <div ref={sectionRefs.profile}>
-                    <PersonalInfoSection personalInfo={userData.personalInfo} onEdit={handleEdit} />
-                </div>
-                <div ref={sectionRefs.education}>
-                    <EducationSection educationDetails={userData.educationDetails} onEdit={handleEdit} />
-                </div>
-                <div ref={sectionRefs.skills}>
-                    <SkillsSection skills={userData.skills} onEdit={handleEdit} />
-                </div>
-                <div ref={sectionRefs.experience}>
-                    <ExperienceSection experienceDetails={userData.experienceDetails} onEdit={handleEdit} />
-                </div>
-                <div ref={sectionRefs.accomplishments}>
-                    <AccomplishmentsSection accomplishments={userData.accomplishments} onEdit={handleEdit} />
-                </div>
-                <div ref={sectionRefs.extraCurricular}>
-                    <ExtraCurricularSection extraCurricular={userData.extraCurricular} onEdit={handleEdit} />
-                </div>
+                {renderActiveSection()}
             </div>
 
             {/* Edit Modal */}
