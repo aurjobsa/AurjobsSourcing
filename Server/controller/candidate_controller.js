@@ -3,6 +3,11 @@ import { findCandidatesByFilters } from "../model/candidate_model.js"
 export const getCandidates = async(req, res) => {
     try {
         const { job_role, industry, job_experience_required, job_location, job_skills_required } = req.query;
+        // console.log(job_role);
+        // console.log(industry);
+        // console.log(job_experience_required);
+        // console.log(job_location);
+        // console.log(job_skills_required);
 
         // ✅ Convert `job_experience_required` to number
         const experienceRequired = job_experience_required ? parseInt(job_experience_required, 10) : null;
