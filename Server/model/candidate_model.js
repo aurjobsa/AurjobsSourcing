@@ -71,6 +71,7 @@ const getCandidateIdsByLocation = async(job_location) => {
         .from("candidates")
         .select("candidate_id")
         .eq("candidate_location", job_location);
+    console.log(data);
     if (error) {
         console.error("Error fetching candidates by location:", error.message);
         return new Set();
@@ -146,7 +147,8 @@ const getAllCandidatesIds = async() => {
 export const findCandidatesByFilters = async(job_role, industry, job_experience_required, job_location, job_skills_required) => {
     try {
         // If all filters are undefined, return all candidates
-        // console.log(job_experience_required);
+        console.log(job_experience_required);
+        console.log(job_location);
         if (!job_role && !industry && !job_experience_required && !job_location && ((!job_skills_required || job_skills_required.length === 0))) {
             const allCandidateIds = await getAllCandidatesIds();
             console.log("---------------", allCandidateIds);
@@ -165,22 +167,39 @@ export const findCandidatesByFilters = async(job_role, industry, job_experience_
         console.log("locationIds:", locationIds);
         console.log("skillsIds:", skillsIds);
 
-
-        // Filter out null values
-        const nonEmptySets = [roleIds, industryIds, experienceIds, locationIds, skillsIds].filter(set => set !== null);
-
         let allCandidateIds;
-        // const nonEmptySets = [roleIds, industryIds, experienceIds, locationIds, skillsIds].filter(set => set.size > 0);
+        const nonEmptySets = [roleIds, industryIds, experienceIds, locationIds, skillsIds]
+            .filter(set => set instanceof Set && set.size > 0);
+        console.log("nonEmptySets--------- = ", nonEmptySets);
+        // Merge all sets into one
+        const mergedSet = new Set();
+        nonEmptySets.forEach(set => set.forEach(id => mergedSet.add(id)));
+
+        console.log("Merged Candidate IDs Set:", mergedSet);
+
 
         if (nonEmptySets.length > 0) {
-            // Convert first Set to an Array before reducing
-            allCandidateIds = [...nonEmptySets[0]].filter(id =>
-                nonEmptySets.every(set => set.has(id))
+            // Convert first Set to an Array before filtering
+            const allCandidateIdsArray = Array.from(mergedSet); // Ensure it's an array
+            // console.log(allCandidateIdsArray, "=============");
+            allCandidateIds = allCandidateIdsArray.filter(id =>
+                nonEmptySets.every(set => set instanceof Set && set.has(id)) // Ensure set is valid
             );
+
+            console.log("Filtered Candidate IDs:", allCandidateIds);
         } else {
             // If no filters are applied, return all candidate IDs
             allCandidateIds = await getAllCandidatesIds();
+
+            // Ensure the result is an array
+            if (!Array.isArray(allCandidateIds)) {
+                console.error("Error: getAllCandidatesIds() did not return an array.");
+                allCandidateIds = [];
+            }
         }
+
+        console.log("Final Candidate IDs:", allCandidateIds);
+        console.log("-----------------------");
 
 
         // Fetch full candidate details
