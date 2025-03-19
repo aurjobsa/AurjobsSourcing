@@ -26,7 +26,7 @@ const Navbar = ({ pricingRef, contactRef }) => {
   const handleSearchCandidates = () => {
     setMenuOpen(false); // Close mobile menu
     if (!isCompanyLogged) {
-      navigate('/company/login');
+      navigate('/company_login');
     } else {
       navigate('/search');
     }
@@ -35,7 +35,7 @@ const Navbar = ({ pricingRef, contactRef }) => {
   const handleCandidateRegistration = () => {
     setMenuOpen(false); // Close mobile menu
     if (!isCandidateLogged) {
-      navigate('/candidate/login');
+      navigate('/candidate_login');
     } else {
       navigate('/dashboard');
     }
