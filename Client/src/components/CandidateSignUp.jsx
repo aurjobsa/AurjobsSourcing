@@ -976,7 +976,7 @@ const CandidateSignUp = ({ navigateToLogin }) => {
         <option value="">Select PWD status</option>
     <option value="No">No</option>
     <option value="Yes">Yes</option>
-    <option value="Prefer Not to Say">Prefer Not to Say</option>
+    <option value="Prefer Not to Say">Prefer Not to Say</option> 
       </select>
       
     </div>
