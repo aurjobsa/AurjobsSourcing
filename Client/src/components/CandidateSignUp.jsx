@@ -331,20 +331,33 @@ const CandidateSignUp = ({ navigateToLogin }) => {
   </div>
 
   <div className="flex flex-col w-full">
-    <label className="text-md font-medium text-gray-700 mb-2">
-      Resume URL <span className="text-red-500 ml-1">*</span>
-    </label>
-    <input
-      type="text"
-      name="candidate_resume_link"
-      value={formData.candidate_resume_link}
-      onChange={handleChange}
-      className="w-full px-3 py-2.5 border-2 border-gray-300 rounded-lg text-gray-900  
-        transition-all duration-300 hover:border-blue-400"
-      placeholder="Enter resume URL"
-      required
-    />
-  </div>
+  <label className="text-md font-medium text-gray-700 mb-2">
+    Upload Resume <span className="text-red-500 ml-1">*</span>
+  </label>
+  <input
+    type="file"
+    name="candidate_resume_link"
+    accept="application/pdf"
+    onChange={(e) => {
+      const file = e.target.files[0];
+      if (file && file.type === "application/pdf") {
+        setFormData({ ...formData, candidate_resume: file });
+      } else {
+        alert("Please upload a valid PDF file.");
+      }
+    }}
+    className="w-full px-3 py-2.5 border-2 border-gray-300 rounded-lg text-gray-900  
+      transition-all duration-300 hover:border-blue-400 cursor-pointer file:mr-4 file:py-2 
+      file:px-4 file:rounded-lg file:border-0 file:text-white file:bg-blue-500 hover:file:bg-blue-600"
+    required
+  />
+  {formData.candidate_resume_link && (
+    <p className="mt-2 text-sm text-gray-600">
+      Selected file: {formData.candidate_resume_link.name}
+    </p>
+  )}
+</div>
+
 
   <div className="relative w-full">
     <label className="flex items-center text-md font-medium text-gray-700 mb-2">
@@ -443,20 +456,26 @@ const CandidateSignUp = ({ navigateToLogin }) => {
       </div>
 
       <div className="flex flex-col w-full mt-2">
-        <label className="flex items-center text-md font-medium text-gray-700 mb-2">
-          Education Level <span className="text-red-500 ml-1">*</span>
-        </label>
-        <input
-          type="text"
-          name="candidate_education"
-          value={edu.candidate_education}
-          onChange={(e) => handleChangeEducation(index, e)}
-          className="w-full px-3 py-2.5 border-2 border-gray-300 rounded-lg text-gray-900  
-      transition-all duration-300 hover:border-blue-400"
-          placeholder="Enter Education Level"
-          required
-        />
-      </div>
+  <label className="flex items-center text-md font-medium text-gray-700 mb-2">
+    Education Level <span className="text-red-500 ml-1">*</span>
+  </label>
+  <select
+    name="candidate_education"
+    value={edu.candidate_education}
+    onChange={(e) => handleChangeEducation(index, e)}
+    className="w-full px-3 py-2.5 border-2 border-gray-300 rounded-lg text-gray-900  
+    transition-all duration-300 hover:border-blue-400"
+    required
+  >
+    <option value="">Select education level</option>
+    <option value="High School">High School</option>
+    <option value="Bachelor's">Bachelor's</option>
+    <option value="Master's">Master's</option>
+    <option value="PhD">PhD</option>
+    <option value="Other">Other</option>
+  </select>
+</div>
+
 
       <div className="flex flex-col w-full mt-2">
         <label className="flex items-center text-md font-medium text-gray-700 mb-2">
@@ -563,7 +582,7 @@ const CandidateSignUp = ({ navigateToLogin }) => {
             <label className="flex items-center text-md font-medium text-gray-700 mb-2">
               Job Industry <span className="text-red-500 ml-1">*</span>
             </label>
-            <input
+            <select
               type="text"
               name="candidate_industry"
               value={exp.candidate_industry}
@@ -572,13 +591,27 @@ const CandidateSignUp = ({ navigateToLogin }) => {
         transition-all duration-300 hover:border-blue-400"
               placeholder="Enter job industry"
               required
-            />
+            >
+
+              <option value="">All Industry</option>
+              <option value="Technology">Technology</option>
+              <option value="Design">Design</option>
+              <option value="Science">Science</option>
+              <option value="Business">Business</option>
+              <option value="Finance">Finance</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Customer Service">Customer Service</option>
+              <option value="Human Resource">Human Resource</option>
+
+
+            </select>
           </div>
+
           <div className="flex flex-col w-full mt-2">
             <label className="flex items-center text-md font-medium text-gray-700 mb-2">
               Job Type <span className="text-red-500 ml-1">*</span>
             </label>
-            <input
+            <select
               type="text"
               name="candidate_job_type"
               value={exp.candidate_job_type}
@@ -587,7 +620,14 @@ const CandidateSignUp = ({ navigateToLogin }) => {
         transition-all duration-300 hover:border-blue-400"
               placeholder="Enter job type"
               required
-            />
+            >
+             <option value="">Select Job Type</option>
+              <option value="Full-time">Full-time</option>
+              <option value="Part-time">Part-time</option>
+              <option value="Contract">Contract</option>
+              <option value="Internship">Internship</option>
+              {/* <option value="Other">Other</option> */}
+          </select>
           </div>
 
           <div className="grid grid-cols-2 gap-4 mt-2">
@@ -688,7 +728,7 @@ const CandidateSignUp = ({ navigateToLogin }) => {
       {/* <Mail className="mr-2 text-blue-500" size={18} /> */}
       Preferred Industry <span className="text-red-500 ml-1">*</span>
     </label>
-    <input
+    <select
       type="text"
       name="preferred_industry"
       value={formData.preferred_industry}
@@ -697,7 +737,18 @@ const CandidateSignUp = ({ navigateToLogin }) => {
         transition-all duration-300 hover:border-blue-400"
       placeholder="Enter Preferred Industry"
       required
-    />
+    >
+            <option value="">All Industry</option>
+            <option value="Technology">Technology</option>
+            <option value="Design">Design</option>
+            <option value="Science">Science</option>
+            <option value="Business">Business</option>
+            <option value="Finance">Finance</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Customer Service">Customer Service</option>
+            <option value="Human Resource">Human Resource</option>
+
+    </select>
   </div>
   
   <div className="flex flex-col w-full">
@@ -722,8 +773,8 @@ const CandidateSignUp = ({ navigateToLogin }) => {
     <label className="text-md font-medium text-gray-700 mb-2">
       Availability <span className="text-red-500 ml-1">*</span>
     </label>
-    <input
-      type="number"
+    <select
+      type="text"
       name="candidate_availability"
       value={formData.candidate_availability}
       onChange={handleChange}
@@ -731,7 +782,15 @@ const CandidateSignUp = ({ navigateToLogin }) => {
         transition-all duration-300 hover:border-blue-400"
       placeholder="Availability in days"
       required
-    />
+    >
+
+              <option value="">Select Availability</option>
+              <option value="Immediately">Immediately</option>
+              <option value="2 Weeks Notice">2 Weeks Notice </option>
+              <option value="1 Month Notice">1 Month Notice</option>
+              <option value="3 Months Notice">3 Months Notice</option>
+              
+    </select>
   </div>
 
   <div className="relative w-full">
@@ -740,7 +799,7 @@ const CandidateSignUp = ({ navigateToLogin }) => {
       Remote Work <span className="text-red-500 ml-1">*</span>
     </label>
     <div className="relative">
-      <input
+      <select
         type="text"
         name="RemoteWork"
         value={formData.RemoteWork}
@@ -749,7 +808,12 @@ const CandidateSignUp = ({ navigateToLogin }) => {
         transition-all duration-300 hover:border-blue-400"
         placeholder="Open to Remote Work"
         required
-      />
+      >
+      
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+
+      </select>
       {/* <button
         type="button"
         onClick={() => togglePasswordVisibility('password')}
@@ -776,13 +840,7 @@ const CandidateSignUp = ({ navigateToLogin }) => {
         placeholder="Enter Job Preference "
         required
       />
-      {/* <button
-        type="button"
-        onClick={() => togglePasswordVisibility('confirmPassword')}
-        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-blue-500"
-      >
-        {passwordVisible.confirmPassword ? <Eye size={20} /> : <EyeOff size={20} />}
-      </button> */}
+    
     </div>
   </div>
 
@@ -832,7 +890,7 @@ const CandidateSignUp = ({ navigateToLogin }) => {
       {/* <Mail className="mr-2 text-blue-500" size={18} /> */}
       Gender <span className="text-red-500 ml-1">*</span>
     </label>
-    <input
+    <select
       type="text"
       name="candidate_gender"
       value={formData.candidate_gender}
@@ -841,7 +899,13 @@ const CandidateSignUp = ({ navigateToLogin }) => {
         transition-all duration-300 hover:border-blue-400"
       placeholder="Enter your Gender"
       required
-    />
+    >
+        <option value="">Select gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female </option>
+        <option value="Other">Other</option>
+        <option value="Prefer not to say">Prefer not to say</option>
+    </select>
   </div>
   
   <div className="flex flex-col w-full">
@@ -899,7 +963,7 @@ const CandidateSignUp = ({ navigateToLogin }) => {
       Physically Disabled <span className="text-red-500 ml-1">*</span>
     </label>
     <div className="relative">
-      <input
+      <select
         type='text'
         name="pwd"
         value={formData.pwd}
@@ -908,24 +972,23 @@ const CandidateSignUp = ({ navigateToLogin }) => {
         transition-all duration-300 hover:border-blue-400"
         placeholder="Yes/No"
         required
-      />
-      {/* <button
-        type="button"
-        onClick={() => togglePasswordVisibility('password')}
-        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-blue-500"
       >
-        {passwordVisible.password ? <Eye size={20} /> : <EyeOff size={20} />}
-      </button> */}
+        <option value="">Select PWD status</option>
+    <option value="No">No</option>
+    <option value="Yes">Yes</option>
+    <option value="Prefer Not to Say">Prefer Not to Say</option>
+      </select>
+      
     </div>
   </div>
 
   <div className="relative w-full">
     <label className="flex items-center text-md font-medium text-gray-700 mb-2">
-      <User className="mr-2 text-blue-500" size={18} />
+      {/* <User className="mr-2 text-blue-500" size={18} /> */}
       Veteran Status <span className="text-red-500 ml-1">*</span>
     </label>
     <div className="relative">
-      <input
+      <select
         type='text'
         name="veteran_status"
         value={formData.veteran_status}
@@ -934,7 +997,12 @@ const CandidateSignUp = ({ navigateToLogin }) => {
         transition-all duration-300 hover:border-blue-400"
         placeholder="Yes/No"
         required
-      />
+      >
+        <option value="">Select veteran status</option>
+    <option value="Not a Veteran">Not a Veteran</option>
+    <option value="Veteran">Veteran</option>
+    <option value="Prefer Not to Say">Prefer Not to Say</option>
+      </select>
       {/* <button
         type="button"
         onClick={() => togglePasswordVisibility('confirmPassword')}

@@ -81,7 +81,7 @@ const CandidateLogin = ({ navigateToRegister }) => {
           <div className="text-center space-y-3">
             <p className="text-black">
               Don't have an account?{' '}
-              <Link to="/candidate/register">
+              <Link to="/candidate_register">
                 <span
                   onClick={navigateToRegister}
                   className="text-blue-600 hover:text-blue-600 font-medium cursor-pointer"
