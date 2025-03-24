@@ -121,7 +121,8 @@ const getCandidateDetailsByIds = async(candidateIds) => {
             candidate_languages:candidate_languages_candidate_id_fkey(*),
             candidate_education:candidate_education_candidate_id_fkey(*),
             candidate_certifications:candidate_certifications_candidate_id_fkey(*),
-            candidate_address:candidate_address_candidate_id_fkey(*)
+            candidate_address:candidate_address_candidate_id_fkey(*),
+            candidate_preference:candidate_preference_candidate_id_fkey(*)
         `)
         .in("candidate_id", Array.from(candidateIds));
     if (error) {
