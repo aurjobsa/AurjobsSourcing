@@ -1,5 +1,5 @@
 import React from 'react'
-import { X, Filter, Settings, Search, Briefcase, MapPin, Mail, Phone, Calendar, Award, Clock, DollarSign, CheckCircle, ChevronUp, ChevronDown, Star, StarHalf } from 'lucide-react';
+import { X, Filter, Settings, Search, Briefcase, MapPin, Mail, Phone, Calendar, Award, Clock, DollarSign, CheckCircle, ChevronUp, ChevronDown, Star, StarHalf, IndianRupee } from 'lucide-react';
 
 const CandidateCard = ({candidate}) => {
 
@@ -163,10 +163,17 @@ const CandidateCard = ({candidate}) => {
                             <span className="ml-1 font-medium">{candidate?.candidate_availability}</span>
                         </div>
                         <div className="flex items-center">
-                            <DollarSign className="w-4 h-4 mr-2 text-gray-500" />
+                            <IndianRupee className="w-4 h-4 mr-2 text-gray-500" />
                             <span className="text-gray-600">Expected Salary: </span>
                             {/* <span className="ml-1 font-medium">{candidate.salary}</span> */}
-                            <span className="ml-1 font-medium">80000</span>
+                            <span className="ml-1 font-medium">{candidate?.candidate_preference[0]?.expected_salary || "Not Available"} </span>
+
+                        </div>
+                        <div className="flex items-center">
+                            <IndianRupee className="w-4 h-4 mr-2 text-gray-500" />
+                            <span className="text-gray-600">Current Salary: </span>
+                            <span className="ml-1 font-medium">{candidate?.candidate_current_salary  || "Not Available"}</span>
+                            {/* <span className="ml-1 font-medium">{candidate?.candidate_preference[0]?.expected_salary || "Not Available"} </span> */}
 
                         </div>
                     </div>
