@@ -5,6 +5,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 import candidateRoutes from "./routes/candidate_route.js";
+import employerRoutes from "./routes/employer_route.js";
+
 
 
 
@@ -30,6 +32,7 @@ app.use(bodyParser.json()); // Allow JSON requests
 
 // Use the candidate routes
 app.use("/candidates", candidateRoutes);
+app.use("/employers", employerRoutes);
 
 
 // Start server
