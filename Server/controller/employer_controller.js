@@ -1,4 +1,4 @@
-import { createEmployer, findByEmployerEmail, employerDetails } from "../model/employer_model.js";
+import { createEmployer, findByEmployerEmail, employerDetails, updateEmployerDetails } from "../model/employer_model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import _ from "lodash";
@@ -116,3 +116,23 @@ export const loginEmployer = async(req, res) => {
         return res.status(500).json({ error: "Internal Server Error", success: false });
     }
 };
+
+
+export const updateEmployer = async(req, res) => {
+    try {
+        const { id } = req.params;
+        const employerData = req.body;
+        // console.log("-----------------", employerData);
+        const updatedEmployer = await updateEmployerDetails(id, employerData);
+
+
+        if (!updatedEmployer.success) {
+            return res.status(500).json({ success: false, error: updatedEmployer.error });
+        }
+
+        return res.status(200).json({ updatedEmployer, success: true });
+    } catch (error) {
+        console.error("Error updating Employer profile:", error.message);
+        return res.status(500).json({ success: false, error: "Internal Server Error" });
+    }
+}
