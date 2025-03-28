@@ -213,6 +213,56 @@ export const findCandidatesByFilters = async(job_role, industry, job_experience_
     }
 };
 
+
+export const findByCandidateID = async(candidateID) => {
+    try {
+        // Fetch candidate details and related tables in parallel
+        const [
+            candidate,
+            experiences,
+            skills,
+            languages,
+            education,
+            certifications,
+            addresses,
+            preferences,
+        ] = await Promise.all([
+            supabase.from("candidates").select("*").eq("candidate_id", candidateID).single(),
+            supabase.from("candidate_experience").select("*").eq("candidate_id", candidateID),
+            supabase.from("candidate_skills").select("*").eq("candidate_id", candidateID),
+            supabase.from("candidate_languages").select("*").eq("candidate_id", candidateID),
+            supabase.from("candidate_education").select("*").eq("candidate_id", candidateID),
+            supabase.from("candidate_certifications").select("*").eq("candidate_id", candidateID),
+            supabase.from("candidate_address").select("*").eq("candidate_id", candidateID),
+            supabase.from("candidate_preference").select("*").eq("candidate_id", candidateID)
+        ]);
+
+        // Check for errors
+        if (candidate.error) {
+            console.error("Supabase Error (Candidate):", candidate.error.message);
+            return null;
+        }
+
+        // Returning structured JSON response
+        return {
+            ...candidate.data,
+            experiences: experiences.data || [],
+            skills: skills.data || [],
+            languages: languages.data || [],
+            education: education.data || [],
+            certifications: certifications.data || [],
+            addresses: addresses.data || [],
+            preferences: preferences.data || [],
+
+
+        };
+
+    } catch (error) {
+        console.error("Error fetching candidate details:", error.message);
+        return null;
+    }
+};
+
 // import supabase from "../config/supabase_config.js";
 
 

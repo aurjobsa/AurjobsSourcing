@@ -1,4 +1,4 @@
-import { findCandidatesByFilters } from "../model/candidate_model.js"
+import { findCandidatesByFilters, findByCandidateID } from "../model/candidate_model.js"
 
 export const getCandidates = async(req, res) => {
     try {
@@ -29,3 +29,26 @@ export const getCandidates = async(req, res) => {
         return res.status(500).json({ success: false, error: "Internal server error" });
     }
 };
+
+export const getCandidateProfile = async(req, res) => {
+    try {
+        const { id } = req.params; // Ensure candidateId is set from authentication middleware
+        console.log(id)
+        if (!id) {
+            return res.status(400).json({ error: "Candidate ID is missing", success: false });
+        }
+
+        const candidate = await findByCandidateID(id);
+
+        if (!candidate) {
+            return res.status(404).json({ error: "Candidate not found", success: false });
+        }
+
+        console.log("Candidate Profile:", candidate);
+        return res.status(200).json({ success: true, candidate });
+    } catch (error) {
+        console.error("Error fetching candidate profile:", error);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+
+}
