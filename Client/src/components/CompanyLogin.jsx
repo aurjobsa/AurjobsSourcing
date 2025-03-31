@@ -1,96 +1,186 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import LoginImage from '../assets/Login.png';
+import React, { useEffect, useState } from 'react';
+import { 
+  Mail, 
+  Lock, 
+  LogIn, 
+  Loader2
+} from 'lucide-react';
+import { Link, useNavigate} from 'react-router-dom';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import {useDispatch, useSelector} from "react-redux";
+import { getEmployerProfile, setEmployerAuthentication } from "../redux/employerSlice";
+import { BASEURL } from '../utility/config';
 
-function CompanyLogin() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const CompanyLogin = () => {
+  const [loginData, setLoginData] = useState({
+    company_email: '',
+    company_password: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  async function handleLogin(e) {
+  const {isAuthenticated} = useSelector((state)=>state.employer)
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const requestBody = { email, password };
-      console.log("Login Request: ", requestBody);
-    } catch (error) {
-      console.log("Error during login: ", error);
+      setLoading(true)
+      const res = await axios.post(`${BASEURL}/employers/Employer_Login`, loginData, {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        withCredentials: true
+      })
+
+      if (res?.data?.success) {
+        toast.success(res?.data?.message , {
+          duration: 4000,
+          position: 'top-right',
+          
+        });
+        navigate("/search")
+
+        dispatch(getEmployerProfile(res?.data?.employer))
+        dispatch(setEmployerAuthentication(true))
+
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response?.data?.message , {
+        duration: 4000,
+        position: 'top-right',
+        
+      });
+      dispatch(setEmployerAuthentication(false))
+    } finally {
+      setLoading(false)
     }
-  }
+
+  };
+
+  useEffect(()=>{
+    if(isAuthenticated){
+      navigate("/search")
+    }
+  },[isAuthenticated])
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-white animate-slide-out">
-      <div className="flex flex-col md:flex-row items-center justify-center bg-white rounded-lg shadow-lg p-8 md:p-12 w-full max-w-4xl">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center p-6">
+      <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md border border-blue-100 transform transition duration-500 hover:scale-[1.01]">
+        <div className="text-center mb-8">
+          <h2 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-2">
+            Company Login
+          </h2>
+          <p className="text-gray-500 max-w-xs mx-auto">
+            Access your company dashboard and manage job postings
+          </p>
+        </div>
         
-        {/* Left: Form */}
-        <div className="w-full md:w-1/2 p-6">
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold text-black mb-2">Login to your account</h2>
-              <p className="text-gray-600">Welcome back!</p>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label htmlFor="email" className=" text-sm font-medium text-gray-700 mb-2 flex items-center">
+              <Mail className="mr-2 text-blue-500" size={20} />
+              Email Address
+            </label>
+            <div className="relative">
+              <input
+                type="email"
+                id="company_email"
+                name="company_email"
+                value={loginData.company_email}
+                onChange={handleChange}
+                required
+                placeholder="Enter your company email"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+              />
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
             </div>
-            <hr />
-            <div className="space-y-4">
-              <div className="relative">
-                <input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full p-2 border-black border-b-[1.5px] focus:outline-none peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor="email"
-                  className="absolute text-md text-black duration-300 transform top-0 -translate-y-4 scale-75 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-2 peer-focus:scale-75 peer-focus:-translate-y-4"
-                >
-                  Email address
-                </label>
-              </div>
+          </div>
 
-              <div className="relative">
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full p-2 border-black border-b-[1.5px] focus:outline-none peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor="password"
-                  className="absolute text-md text-black duration-300 transform top-0 -translate-y-4 scale-75 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-2 peer-focus:scale-75 peer-focus:-translate-y-4"
-                >
-                  Password
-                </label>
-              </div>
+          <div>
+            <label htmlFor="password" className=" text-sm font-medium text-gray-700 mb-2 flex items-center">
+              <Lock className="mr-2 text-blue-500" size={20} />
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type="password"
+                id="company_password"
+                name="company_password"
+                value={loginData.company_password}
+                onChange={handleChange}
+                required
+                placeholder="Enter your password"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+              />
+              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              />
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                Remember me
+              </label>
             </div>
 
+            <div className="text-sm">
+              <a href="#" className="font-medium text-blue-600 hover:text-blue-500 transition duration-300">
+                Forgot password?
+              </a>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center mt-6">
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white py-3 px-4 rounded-md hover:bg-blue-600 transition duration-200"
+              className="flex items-center justify-center w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl hover:from-blue-700 hover:to-purple-700 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 shadow-lg hover:shadow-xl"
             >
-              LOG IN
+              
+              
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please Wait...
+                </>
+              ) : (
+                <>
+                  <LogIn className="mr-2" size={20} />
+                  Log In
+                </>
+              )}
             </button>
+          </div>
 
-            <div className="text-center space-y-3">
-              <p className="text-gray-600">
-                Don't have an account?{" "}
-                <Link to={"/company/register"}>
-                  <span className="text-blue-500 hover:text-blue-600 font-medium cursor-pointer">
-                    Create an account
-                  </span>
-                </Link>
-              </p>
-            </div>
-          </form>
-        </div>
-
-        {/* Right: Image */}
-        <div className="hidden md:flex w-full md:w-1/2 justify-center">
-          <img src={LoginImage} className="max-w-full h-auto" alt="Login" />
-        </div>
+          <div className="text-center mt-4">
+            <p className="text-sm text-gray-600">
+              Don't have an account?{' '}
+              <Link to={"/company_register"} className="font-medium text-blue-600 hover:text-blue-500 transition duration-300">
+                Register here
+              </Link>
+            </p>
+          </div>
+        </form>
       </div>
     </div>
   );
-}
+};
 
 export default CompanyLogin;
