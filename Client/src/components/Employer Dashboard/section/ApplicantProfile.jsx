@@ -10,7 +10,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import axios from 'axios';
-import { BASEURL } from '../../../utility/config';
+import { BASEURL, BASEURL1 } from '../../../utility/config';
 import { useParams } from 'react-router-dom';
 
 const ApplicantProfile = () => {
@@ -39,7 +39,7 @@ const ApplicantProfile = () => {
 
   const fetchCandidateData = async () => {
     try {
-      const res = await axios.get(`${BASEURL}/candidates/CandidateProfile/${candidateId}`, {
+      const res = await axios.get(`${BASEURL1}/candidates/CandidateProfile/${candidateId}`, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });

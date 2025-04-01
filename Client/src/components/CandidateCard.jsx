@@ -111,7 +111,7 @@ const CandidateCard = ({candidate}) => {
         return educationEntries.join("\n");
     }
     return (
-        <div className="bg-white rounded-lg shadow-sm mb-4 p-4 hover:shadow-md transition-shadow border border-gray-100">
+        <div className="bg-white flex-1 rounded-lg shadow-sm mb-4 p-4 hover:shadow-md transition-shadow border border-gray-100">
             <div className="flex">
                 {/* Candidate Image */}
                 <div className="mr-4">
