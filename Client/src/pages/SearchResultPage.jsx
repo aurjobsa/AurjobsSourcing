@@ -3,12 +3,208 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { X, Filter, Settings, Search, Briefcase, MapPin, Mail, Phone, Calendar, Award, Clock, DollarSign, CheckCircle, ChevronUp, ChevronDown, Star, StarHalf, IndianRupee } from 'lucide-react';
 import CandidateCard from '../components/CandidateCard';
+import { BASEURL } from '../utility/config';
 
 const TalentSearchPage = () => {
 
+    const educationSpecialties = [
+        // Computer Science & IT
+        "Computer Science",
+        "Software Engineering",
+        "Data Science",
+        "Artificial Intelligence",
+        "Cybersecurity",
+        "Information Technology",
+        "Cloud Computing",
+        "Full Stack Development",
+        "Machine Learning",
+        "Game Development",
+        "Mobile App Development",
+        "Blockchain Technology",
+        "Computer Networking",
+        "Database Management",
+        "Web Development",
+        "Embedded Systems",
+        "Human-Computer Interaction",
+        "Big Data Analytics",
+        "DevOps",
+        "Data Engineering",
+      
+        // Engineering Fields
+        "Mechanical Engineering",
+        "Electrical Engineering",
+        "Electronics and Communication Engineering",
+        "Civil Engineering",
+        "Automobile Engineering",
+        "Aerospace Engineering",
+        "Biomedical Engineering",
+        "Chemical Engineering",
+        "Environmental Engineering",
+        "Industrial Engineering",
+        "Robotics Engineering",
+      
+        // Business & Management
+        "Business Administration",
+        "Finance and Accounting",
+        "Marketing",
+        "Entrepreneurship",
+        "Supply Chain Management",
+        "Human Resource Management",
+        "Operations Management",
+        "E-commerce",
+      
+        // Health & Medicine
+        "Medicine",
+        "Nursing",
+        "Pharmacy",
+        "Dentistry",
+        "Physiotherapy",
+        "Public Health",
+        "Nutrition and Dietetics",
+        "Biotechnology",
+        "Biomedical Sciences",
+        "Veterinary Science",
+      
+        // Arts & Humanities
+        "English Literature",
+        "History",
+        "Philosophy",
+        "Linguistics",
+        "Psychology",
+        "Sociology",
+        "Political Science",
+        "International Relations",
+        "Education and Teaching",
+        "Fine Arts",
+        "Music",
+        "Theater and Performing Arts",
+        "Journalism and Mass Communication",
+      
+        // Science & Research
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Mathematics",
+        "Astronomy",
+        "Geology",
+        "Environmental Science",
+        "Agriculture",
+        "Forestry",
+        "Marine Biology",
+        "Genetics",
+      
+        // Law & Legal Studies
+        "Law",
+        "Criminology",
+        "Forensic Science",
+        "Intellectual Property Law",
+        "Corporate Law",
+        "International Law",
+        "Human Rights Law",
+      
+        // Social Sciences & Others
+        "Social Work",
+        "Anthropology",
+        "Economics",
+        "Urban Planning",
+        "Library and Information Science",
+      
+        // Design & Creative Fields
+        "Graphic Design",
+        "UI/UX Design",
+        "Fashion Design",
+        "Interior Design",
+        "Industrial Design",
+        "Film and Television Production",
+        "Animation and Visual Effects",
+        "Photography",
+      
+        // Education & Training
+        "Primary Education",
+        "Secondary Education",
+        "Higher Education",
+        "Special Education",
+        "Educational Psychology",
+        "E-learning and Instructional Design"
+      ];
+      const degreesList = [
+        // Undergraduate Degrees
+        "Associate of Arts (AA)",
+        "Associate of Science (AS)",
+        "Associate of Applied Science (AAS)",
+        "Bachelor of Arts (BA)",
+        "Bachelor of Science (BS)",
+        "Bachelor of Business Administration (BBA)",
+        "Bachelor of Commerce (BCom)",
+        "Bachelor of Engineering (BE)",
+        "Bachelor of Technology (BTech)",
+        "Bachelor of Computer Applications (BCA)",
+        "Bachelor of Fine Arts (BFA)",
+        "Bachelor of Architecture (BArch)",
+        "Bachelor of Design (BDes)",
+        "Bachelor of Pharmacy (BPharm)",
+        "Bachelor of Law (LLB)",
+        "Bachelor of Education (BEd)",
+        "Bachelor of Social Work (BSW)",
+        "Bachelor of Medicine and Bachelor of Surgery (MBBS)",
+        "Bachelor of Dental Surgery (BDS)",
+        "Bachelor of Nursing (BN)",
+        "Bachelor of Public Health (BPH)",
+      
+        // Postgraduate Degrees
+        "Master of Arts (MA)",
+        "Master of Science (MS/MSc)",
+        "Master of Business Administration (MBA)",
+        "Master of Commerce (MCom)",
+        "Master of Engineering (ME)",
+        "Master of Technology (MTech)",
+        "Master of Computer Applications (MCA)",
+        "Master of Fine Arts (MFA)",
+        "Master of Architecture (MArch)",
+        "Master of Design (MDes)",
+        "Master of Pharmacy (MPharm)",
+        "Master of Law (LLM)",
+        "Master of Education (MEd)",
+        "Master of Social Work (MSW)",
+        "Master of Public Administration (MPA)",
+        "Master of Public Health (MPH)",
+        "Master of Philosophy (MPhil)",
+      
+        // Doctorate Degrees
+        "Doctor of Philosophy (PhD)",
+        "Doctor of Science (DSc)",
+        "Doctor of Engineering (DEng)",
+        "Doctor of Medicine (MD)",
+        "Doctor of Dental Medicine (DMD)",
+        "Doctor of Pharmacy (PharmD)",
+        "Doctor of Public Health (DrPH)",
+        "Doctor of Business Administration (DBA)",
+        "Doctor of Education (EdD)",
+        "Doctor of Laws (LLD)",
+        "Doctor of Social Work (DSW)",
+      
+        // Professional Degrees
+        "Juris Doctor (JD)",
+        "Doctor of Veterinary Medicine (DVM)",
+        "Doctor of Optometry (OD)",
+        "Doctor of Physical Therapy (DPT)",
+        "Doctor of Chiropractic (DC)",
+        "Doctor of Occupational Therapy (OTD)",
+      
+        // Diplomas & Certificates
+        "Diploma in Engineering",
+        "Diploma in Nursing",
+        "Diploma in Computer Applications",
+        "Postgraduate Diploma (PGD)",
+        "Advanced Diploma",
+        "Certificate Program"
+      ];
+
     const [allCandidates, setAllCandidates] = useState([]);
+    
     // Filtered candidates to display
     const [filteredCandidates, setFilteredCandidates] = useState([]);
+    console.log(filteredCandidates)
     const [searchTerm, setSearchTerm] = useState('');
     const [filterVisible, setFilterVisible] = useState(false);
     const [showLeftFilters, setShowLeftFilters] = useState(true);
@@ -23,6 +219,7 @@ const TalentSearchPage = () => {
         preferences: false,
         activity: false
     });
+    const [loading, setLoading] = useState(false);
 
     // Function to get query parameters from URL
     function getQueryParams() {
@@ -108,6 +305,8 @@ const TalentSearchPage = () => {
         degree: "Any",
         university: "",
         graduationYear: "Any",
+        specialization: "Any",
+        educationDegree: "Any",
 
         // Employment section
         currentTitle: "",
@@ -145,7 +344,7 @@ const TalentSearchPage = () => {
         console.log("API Initiated");
         try {
             const res = await axios.get(
-                `http://localhost:3000/candidates/search_candidates?job_role=${params.searchQuery || ''}&industry=${params.industry || ''}&job_experience_required=${params.experience || ''}&job_location=${params.location || ''}&job_skills_required=${params.skills || ''}`
+                `${BASEURL}/candidates/search_candidates?job_role=${params.searchQuery || ''}&industry=${params.industry || ''}&job_experience_required=${params.experience || ''}&job_location=${params.location || ''}&job_skills_required=${params.skills || ''}`
             );
 
             if (res?.data?.data) {
@@ -314,10 +513,17 @@ const TalentSearchPage = () => {
         } else if (filterKey === 'skills') {
             setPrimaryFilters({ ...primaryFilters, skills: '' });
         }
-        // Handle advanced filters
+        // Handle advanced filters 
         else if (filterKey === 'degree') {
             setAdvancedFilters({ ...advancedFilters, degree: 'Any' });
-        } else if (filterKey === 'university') {
+        }
+        else if (filterKey === 'educationDegree') {
+            setAdvancedFilters({ ...advancedFilters, educationDegree: 'Any' });
+        }
+        else if (filterKey === 'specialization') {
+            setAdvancedFilters({ ...advancedFilters, specialization: 'Any' });
+        }
+        else if (filterKey === 'university') {
             setAdvancedFilters({ ...advancedFilters, university: '' });
         } else if (filterKey === 'graduationYear') {
             setAdvancedFilters({ ...advancedFilters, graduationYear: 'Any' });
@@ -373,6 +579,8 @@ const TalentSearchPage = () => {
             degree: "Any",
             university: "",
             graduationYear: "Any",
+            specialization: "Any",
+            educationDegree: "Any",
 
             // Employment section
             currentTitle: "",
@@ -419,7 +627,7 @@ const TalentSearchPage = () => {
     const applyAdvancedFilters = () => {
 
         const basicFilters = appliedFilters.filter(filter =>
-            !['degree', 'university', 'graduationYear', 'employmentType',
+            !['degree', 'university','specialization', 'graduationYear', 'employmentType','educationDegree',
                 'currentTitle', 'currentCompany', 'availableFrom', 'remoteOnly',
                 'workType', 'language', 'workAuthorization', 'companySize',
                 'womenInTech', 'veteranStatus', 'pwd', 'willingToRelocate', 'openToTravel', 'minSalary', 'maxSalary','minSalaryExpected','maxSalaryExpected'].includes(filter.key)
@@ -433,6 +641,12 @@ const TalentSearchPage = () => {
         // Add education filters
         if (advancedFilters.degree !== "Any") {
             newFilters.push({ key: "degree", value: advancedFilters.degree });
+        } 
+        if (advancedFilters.educationDegree !== "Any") {
+            newFilters.push({ key: "educationDegree", value: advancedFilters.educationDegree });
+        }
+        if (advancedFilters.specialization !== "Any") {
+            newFilters.push({ key: "specialization", value: advancedFilters.specialization });
         }
 
         if (advancedFilters.university) {
@@ -601,6 +815,31 @@ const TalentSearchPage = () => {
                 appliedFilterTracker["degree"] = `${beforeCount} → ${results.length}`;
 
                 console.log("Results count after degree filter:", results.length);
+            } 
+            else if (key === "educationDegree" && value && value !== "Any") {
+                
+
+                results = results.filter(candidate => {
+                    // Log the education data for each candidate
+                    
+
+                    if (!candidate.candidate_education || !Array.isArray(candidate.candidate_education)) {
+                        console.log("-> Candidate has no education array");
+                        return false;
+                    }
+
+                    const matchFound = candidate.candidate_education.some(edu => {
+                        const educationLevel = (edu.candidate_degree || '').toLowerCase();
+                        console.log("-> Checking education level:", educationLevel, "against filter:", value.toLowerCase());
+                        return educationLevel.includes(value.toLowerCase());
+                    });
+
+                    console.log("-> Match found:", matchFound);
+                    return matchFound;
+                });
+                appliedFilterTracker["educationDegree"] = `${beforeCount} → ${results.length}`;
+
+                console.log("Results count after degree filter:", results.length);
             }
 
             // University filter
@@ -616,6 +855,19 @@ const TalentSearchPage = () => {
                     });
                 });
                 appliedFilterTracker["university"] = `${beforeCount} → ${results.length}`;
+            } 
+            else if (key === "specialization" && value) {
+                results = results.filter(candidate => {
+                    if (!candidate.candidate_education || !Array.isArray(candidate.candidate_education)) {
+                        return false;
+                    }
+
+                    return candidate.candidate_education.some(edu => {
+                        const specializationDegree = (edu.candidate_degree_specialization || '').toLowerCase();
+                        return specializationDegree.includes(value.toLowerCase());
+                    });
+                });
+                appliedFilterTracker["specialization"] = `${beforeCount} → ${results.length}`;
             }
 
             // Graduation Year filter
@@ -1230,7 +1482,7 @@ const TalentSearchPage = () => {
                         {expandedFilters.education && (
                             <div className="space-y-3 mt-2">
                                 <div>
-                                    <label className="block text-sm text-gray-600 mb-1">Degree</label>
+                                    <label className="block text-sm text-gray-600 mb-1">Education Level</label>
                                     <select
                                         className="w-full p-2 border border-gray-300 rounded-md text-sm"
                                         value={advancedFilters.degree}
@@ -1240,6 +1492,42 @@ const TalentSearchPage = () => {
                                         <option>Bachelor's</option>
                                         <option>Master's</option>
                                         <option>PhD</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-sm text-gray-600 mb-1">Degree</label>
+                                    <select
+                                        className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                                        value={advancedFilters.educationDegree}
+                                        onChange={(e) => setAdvancedFilters({ ...advancedFilters, educationDegree: e.target.value })}
+                                    >
+                                        <option>Any</option>
+                                        {
+                                            degreesList.map((e)=>(
+                                                <option>{e}</option>
+                                            ))
+                                        }
+                                        {/* <option>Bachelor's</option>
+                                        <option>Master's</option>
+                                        <option>PhD</option> */}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-sm text-gray-600 mb-1">Specialization</label>
+                                    <select
+                                        className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                                        value={advancedFilters.specialization}
+                                        onChange={(e) => setAdvancedFilters({ ...advancedFilters, specialization: e.target.value })}
+                                    >
+                                        <option>Any</option>
+                                        {
+                                            educationSpecialties?.map((e)=>(
+                                                <option>{e}</option>
+                                            ))
+                                        }
+                                        {/* <option>Bachelor's</option>
+                                        <option>Master's</option>
+                                        <option>PhD</option> */}
                                     </select>
                                 </div>
                                 <div>
@@ -1339,37 +1627,7 @@ const TalentSearchPage = () => {
                     </div>
 
                     {/* Compensation */}
-                    {/* <div className="mb-4 pb-4 border-b border-gray-200">
-                        <button
-                            className="flex justify-between items-center w-full text-left font-medium text-gray-800 mb-2 hover:text-indigo-600 transition-colors"
-                            onClick={() => toggleFilter('compensation')}
-                        >
-                            <span>Compensation</span>
-                            {expandedFilters.compensation ?
-                                <ChevronUp className="h-4 w-4 text-indigo-500" /> :
-                                <ChevronDown className="h-4 w-4 text-gray-500" />
-                            }
-                        </button>
-
-                        {expandedFilters.compensation && (
-                            <div className="space-y-3 mt-2">
-                                <div>
-                                    <label className="block text-sm text-gray-600 mb-1">Salary Range</label>
-                                    <select
-                                        className="w-full p-2 border border-gray-300 rounded-md text-sm"
-                                        value={advancedFilters.salaryRange}
-                                        onChange={(e) => setAdvancedFilters({ ...advancedFilters, salaryRange: e.target.value })}
-                                    >
-                                        <option>Any</option>
-                                        <option>$50k - $75k</option>
-                                        <option>$75k - $100k</option>
-                                        <option>$100k - $150k</option>
-                                        <option>$150k+</option>
-                                    </select>
-                                </div>
-                            </div>
-                        )}
-                    </div> */}
+                    
                     <div className="mb-4 pb-4 border-b border-gray-200">
                         <button
                             className="flex justify-between items-center w-full text-left font-medium text-gray-800 mb-2 hover:text-indigo-600 transition-colors"
