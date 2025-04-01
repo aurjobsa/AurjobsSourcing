@@ -16,7 +16,7 @@ import {
   CheckCircle,
   IndianRupee,
 } from "lucide-react";
-import { BASEURL } from "../../../utility/config";
+import { BASEURL, BASEURL1 } from "../../../utility/config";
 
 const CreateJobPost = () => {
   const { employerProfile } = useSelector((state) => state.employer);
@@ -109,7 +109,7 @@ const CreateJobPost = () => {
     }
 
     try {
-      const response = await axios.post(`${BASEURL}/jobs_post/create_Job_Post`, formData, {
+      const response = await axios.post(`${BASEURL1}/jobs_post/create_Job_Post`, formData, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });

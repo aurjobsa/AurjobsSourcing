@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BASEURL } from '../../../utility/config';
+import {  BASEURL1 } from '../../../utility/config';
 
 const useFetchJobData = (jobId) => {
   const [job, setJob] = useState(null);
@@ -10,7 +10,7 @@ const useFetchJobData = (jobId) => {
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const jobResponse = await axios.get(`${BASEURL}/jobs_post/job_application/${jobId}`, {
+        const jobResponse = await axios.get(`${BASEURL1}/jobs_post/job_application/${jobId}`, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         });
@@ -23,7 +23,7 @@ const useFetchJobData = (jobId) => {
 
     const fetchJobApplicants = async () => {
       try {
-        const applicantsResponse = await axios.get(`${BASEURL}/jobs_post/job_applicants/${jobId}`, {
+        const applicantsResponse = await axios.get(`${BASEURL1}/jobs_post/job_applicants/${jobId}`, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         });

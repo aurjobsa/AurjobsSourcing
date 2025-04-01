@@ -42,7 +42,7 @@ const JobDetails = () => {
   // Job not found state
   if (!job) {
     return (
-      <div className="p-6 text-center mt-20 bg-white rounded-lg shadow-sm">
+      <div className="p-6 text-center bg-white rounded-lg shadow-sm">
         <h3 className="text-xl text-gray-700 mb-4">Job not found</h3>
         <p className="text-gray-500 mb-6">The job you're looking for doesn't exist or has been removed.</p>
         <button
@@ -229,7 +229,7 @@ const JobDetails = () => {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto mt-20 bg-gray-50 min-h-screen">
+    <div className="p-6 max-w-7xl mx-auto  bg-gray-50 min-h-screen">
       {/* Header with breadcrumbs */}
       <div className="mb-2 text-sm text-gray-500">
         <span onClick={() => navigate('/employer_dashboard')} className="hover:text-blue-600 cursor-pointer">Dashboard</span>

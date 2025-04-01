@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo, memo } from 'react';
 import JobCard from './JobCard';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { BASEURL } from '../../../utility/config';
+import { BASEURL, BASEURL1 } from '../../../utility/config';
 
 const ActiveJobs = memo(() => {
     const [jobs, setJobs] = useState([]);
@@ -19,7 +19,7 @@ const ActiveJobs = memo(() => {
 
         setLoading(true);
         try {
-            const response = await axios.get(`${BASEURL}/jobs_post/employer_jobs/${employerId}`, {
+            const response = await axios.get(`${BASEURL1}/jobs_post/employer_jobs/${employerId}`, {
                 headers: {
                     "Content-Type": "application/json",
                 },

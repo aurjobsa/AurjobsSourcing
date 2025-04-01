@@ -12,6 +12,8 @@ import SearchResultPage from './pages/SearchResultPage'
 import Navbar from "./components/Navbar";
 import { ToastContainer} from 'react-toastify';
 import CandidateProfile from './components/CandidateProfile'
+import JobDetails from './components/Employer Dashboard/section/JobDetails'
+import ApplicantProfile from './components/Employer Dashboard/section/ApplicantProfile'
 
 
 const AppRouter = () => {
@@ -29,6 +31,8 @@ const AppRouter = () => {
         <Route path='/search_result' element={<SearchResultPage/>}/>
         <Route path='/employer_dashboard' element={<Dashboard/>} /> 
         <Route path='/candidate_profile/:id' element={<CandidateProfile/>} />
+        <Route path="/employer_dashboard/jobs/:jobId" element={<JobDetails />} />
+        <Route path='/applicant_profile/:id' element={<ApplicantProfile/>}/>
 
       </Routes>
     </>

@@ -2161,7 +2161,7 @@ const TalentSearchPage = () => {
                     {filteredCandidates.length > 0 ? (
 
                         filteredCandidates?.map(candidate => (
-                            // 
+                            
                             <CandidateCard candidate={candidate} />
                         ))
                     ) : (
