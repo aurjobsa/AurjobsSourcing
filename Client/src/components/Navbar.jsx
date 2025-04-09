@@ -306,7 +306,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="w-full relative flex items-center justify-between px-4 md:px-8 py-3  top-0 bg-white/90 backdrop-blur-md z-50 border-b border-gray-100 shadow-sm">
+      <nav className="w-full  flex items-center justify-between px-4 md:px-8 py-3  top-0 bg-white/90 backdrop-blur-md z-50 border-b border-gray-100 shadow-sm fixed">
         {/* Mobile Menu + Logo */}
         <div className="flex items-center space-x-4 md:space-x-0">
           <div

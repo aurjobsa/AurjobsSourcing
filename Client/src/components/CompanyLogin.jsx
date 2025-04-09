@@ -76,7 +76,7 @@ const CompanyLogin = () => {
   },[isAuthenticated])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center p-6 mt-16">
       <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md border border-blue-100 transform transition duration-500 hover:scale-[1.01]">
         <div className="text-center mb-8">
           <h2 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-2">
