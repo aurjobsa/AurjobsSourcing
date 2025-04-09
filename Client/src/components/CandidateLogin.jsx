@@ -23,7 +23,7 @@ const CandidateLogin = ({ navigateToRegister }) => {
 
   return (
     <div
-      className="min-h-screen w-full opacity-100 flex items-center justify-center bg-cover bg-center"
+      className="min-h-screen w-full opacity-100 flex items-center justify-center bg-cover bg-center mt-20"
       style={{ backgroundImage: `url(${LoginImage})` }}
     >
       {/* Form Container */}

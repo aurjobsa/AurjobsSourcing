@@ -59,7 +59,7 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 mt-16">
       {/* Hero Section */}
       <div className="relative bg-gradient-to-b from-blue-100 to-white pt-12 md:pt-20 pb-16 md:pb-32">
         {/* Background Pattern */}
@@ -217,7 +217,7 @@ const SearchPage = () => {
       
 
       {/* Features Section */}
-      <div className="container mx-auto px-4 py-12 md:py-16">
+      <div className="container mx-auto px-4 py-12 md:py-16 ">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-3 md:mb-4">Why Choose Our Platform</h2>
