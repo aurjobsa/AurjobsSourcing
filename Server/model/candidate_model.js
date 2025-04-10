@@ -262,6 +262,47 @@ export const findByCandidateID = async(candidateID) => {
         return null;
     }
 };
+// Adjust path to your Supabase client
+c
+export const insertIntoStarRating = async(candidate_id, employer_id, rating_value) => {
+    try {
+        // Step 1: Fetch the current star_rating array
+        const { data: existingData, error: fetchError } = await supabase
+            .from('candidate_preference')
+            .select('star_ratingg')
+            .eq('candidate_id', candidate_id)
+            .single();
+
+        if (fetchError) {
+            throw fetchError;
+        }
+
+        // Step 2: Prepare the new rating entry
+        const newRating = {
+            employer_id,
+            rating_value,
+            timestamp: new Date().toISOString()
+        };
+
+        // Step 3: Merge the new rating with existing ratings
+        const updatedRatings = existingData && existingData.star_ratingg ? [...existingData.star_ratingg, newRating] : [newRating];
+
+        // Step 4: Update the star_rating column with the new array
+        const { error: updateError } = await supabase
+            .from('candidate_preference')
+            .update({ star_ratingg: updatedRatings })
+            .eq('candidate_id', candidate_id);
+
+        if (updateError) {
+            throw updateError;
+        }
+
+        return { success: true, message: 'Rating added successfully' };
+    } catch (error) {
+        console.error('Error inserting rating into star_rating:', error.message);
+        return { success: false, error: error.message };
+    }
+};
 
 // import supabase from "../config/supabase_config.js";
 
