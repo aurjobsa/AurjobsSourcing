@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from "path";
 
 import candidateRoutes from "./routes/candidate_route.js";
 import employerRoutes from "./routes/employer_route.js";
@@ -29,6 +30,9 @@ app.use(cookieParser());
 app.use(bodyParser.json()); // Allow JSON requests
 
 
+
+// ✅ Serve the uploads folder as a static directory
+app.use('/uploads', express.static(path.join(path.resolve(), 'uploads')));
 
 // Use the candidate routes
 app.use("/candidates", candidateRoutes);
