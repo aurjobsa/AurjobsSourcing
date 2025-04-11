@@ -263,43 +263,88 @@ export const findByCandidateID = async(candidateID) => {
     }
 };
 // Adjust path to your Supabase client
-c
+
+
+
+
 export const insertIntoStarRating = async(candidate_id, employer_id, rating_value) => {
+    
     try {
         // Step 1: Fetch the current star_rating array
-        const { data: existingData, error: fetchError } = await supabase
+        const { data: existingRecords, error: fetchError } = await supabase
             .from('candidate_preference')
             .select('star_ratingg')
-            .eq('candidate_id', candidate_id)
-            .single();
-
+            .eq('candidate_id', candidate_id);
+        
         if (fetchError) {
             throw fetchError;
         }
-
+        
         // Step 2: Prepare the new rating entry
         const newRating = {
             employer_id,
             rating_value,
             timestamp: new Date().toISOString()
         };
-
-        // Step 3: Merge the new rating with existing ratings
-        const updatedRatings = existingData && existingData.star_ratingg ? [...existingData.star_ratingg, newRating] : [newRating];
-
-        // Step 4: Update the star_rating column with the new array
-        const { error: updateError } = await supabase
-            .from('candidate_preference')
-            .update({ star_ratingg: updatedRatings })
-            .eq('candidate_id', candidate_id);
-
-        if (updateError) {
-            throw updateError;
+        
+        // Step 3: Handle the different scenarios
+        if (!existingRecords || existingRecords.length === 0) {
+            // No record exists, create a new one
+            const { error: insertError } = await supabase
+                .from('candidate_preference')
+                .insert({ 
+                    candidate_id, 
+                    star_ratingg: [newRating] 
+                });
+                
+            if (insertError) {
+                throw insertError;
+            }
+            
+            return { success: true, message: 'Rating added successfully', isNewRating: true };
+        } else {
+            // Record exists, check if this employer has rated before
+            const existingRecord = existingRecords[0];
+            let updatedRatings = [];
+            let isUpdate = false;
+            
+            if (existingRecord && existingRecord.star_ratingg) {
+                // Check if employer has rated this candidate before
+                const employerRatingIndex = existingRecord.star_ratingg.findIndex(
+                    rating => rating.employer_id === employer_id
+                );
+                
+                if (employerRatingIndex >= 0) {
+                    // Employer has rated before, update their rating
+                    updatedRatings = [...existingRecord.star_ratingg];
+                    updatedRatings[employerRatingIndex] = newRating;
+                    isUpdate = true;
+                } else {
+                    // Employer has not rated before, add new rating
+                    updatedRatings = [...existingRecord.star_ratingg, newRating];
+                }
+            } else {
+                // No ratings array exists yet
+                updatedRatings = [newRating];
+            }
+            
+            const { error: updateError } = await supabase
+                .from('candidate_preference')
+                .update({ star_ratingg: updatedRatings })
+                .eq('candidate_id', candidate_id);
+                
+            if (updateError) {
+                throw updateError;
+            }
+            
+            return { 
+                success: true, 
+                message: isUpdate ? 'Rating updated successfully' : 'Rating added successfully',
+                isUpdate: isUpdate
+            };
         }
-
-        return { success: true, message: 'Rating added successfully' };
     } catch (error) {
-        console.error('Error inserting rating into star_rating:', error.message);
+        console.error('Error managing rating:', error.message);
         return { success: false, error: error.message };
     }
 };
