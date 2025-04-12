@@ -53,24 +53,30 @@ export const getCandidateProfile = async(req, res) => {
 
 }
 
+
 export const rateCandidate = async(req, res) => {
     try {
         const { candidate_id, ratingData } = req.body;
-
+        
         if (!candidate_id || !ratingData) {
             return res.status(400).json({ error: "Candidate ID or rating data is missing", success: false });
         }
-
+        
+        if (!ratingData.employer_id || !ratingData.rating_value) {
+            return res.status(400).json({ error: "Employer ID or rating value is missing", success: false });
+        }
+        
         // This function will insert the ratingData JSON object into the star_rating column
         const result = await insertIntoStarRating(candidate_id, ratingData.employer_id, ratingData.rating_value);
-
+        
         if (!result.success) {
-            return res.status(404).json(result);
+            return res.status(500).json(result);
         }
-
+        
         return res.status(200).json(result);
     } catch (error) {
         console.error("Error in rateCandidate controller:", error.message);
         return res.status(500).json({ success: false, error: "Internal server error" });
     }
 };
+

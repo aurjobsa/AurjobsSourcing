@@ -220,6 +220,7 @@ const TalentSearchPage = () => {
         activity: false
     });
     const [loading, setLoading] = useState(false);
+    
 
     // Function to get query parameters from URL
     function getQueryParams() {
@@ -1449,6 +1450,9 @@ const TalentSearchPage = () => {
         }
     }, [appliedFilters, sortOption]);
 
+    
+
+
 
     return (
         <div className="flex h-screen bg-gray-50 p-8 mt-20">
@@ -2115,23 +2119,7 @@ const TalentSearchPage = () => {
                         <h3 className="text-lg font-semibold text-gray-800">
                             {filteredCandidates.length} Candidates
                         </h3>
-                        {/* <select className="border border-gray-300 rounded-md p-2 text-sm">
-                            <option>Sort by: Relevance</option>
-                            <option>Sort by: Last Active</option>
-                            <option>Sort by: Name (A-Z)</option>
-                            <option>Sort by: Experience</option>
-                            <option>Sort by: Rating</option>
-                            <option>Sort by: Availability</option>
-                            <option>Sort by: Salary Expectations</option>
-                            <option>Sort by: Skills Match</option>
-                            <option>Sort by: Education Level</option>
-                          
-                            <option>Sort by: Industry Experience</option>
-                            <option>Sort by: Cultural Fit Score</option>
-                            <option>Sort by: References Quality</option>
-                            <option>Sort by: Portfolio Strength</option>
-                            <option>Sort by: Application Completeness</option>
-                        </select> */}
+                       
                         <div className="mb-1 flex items-center">
                             <label htmlFor="sortOptions" className="mr-2 font-medium text-gray-700">Sort by:</label>
                             <select
@@ -2175,6 +2163,7 @@ const TalentSearchPage = () => {
                             </button>
                         </div>
                     )}
+                    
                 </div>
             </div>
         </div>

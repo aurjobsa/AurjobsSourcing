@@ -5,8 +5,8 @@ import BoyImg from "../assets/Boy.png"
 const HeroSection = () => {
   return (
 
-    <div className="min-h-screen relative bg-gradient-to-b from-blue-100 to-white flex items-center justify-center">
-      <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center mt-5">
+    <div className="min-h-screen relative lg:p-12 bg-gradient-to-b from-blue-100 to-white flex items-center justify-center">
+      <div className="container mx-auto lg:px-16 px-4 grid md:grid-cols-2 gap-12 items-center lg:mt-12 mt-28">
         {/* Text Content */}
         <div className="space-y-6 text-center md:text-left">
           <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
