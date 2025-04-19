@@ -8,6 +8,8 @@ import CompanyRegistration from  "./components/CompanyRegistration"
 import Dashboard from "./components/Employer Dashboard/Dashboard"
 import CompanyLogin from "./components/CompanyLogin"
 import SearchPage from './pages/SearchPage'
+import Register from './pages/Register'
+
 import SearchResultPage from './pages/SearchResultPage'
 import Navbar from "./components/Navbar";
 import { ToastContainer} from 'react-toastify';
@@ -33,6 +35,7 @@ const AppRouter = () => {
         <Route path='/candidate_profile/:id' element={<CandidateProfile/>} />
         <Route path="/employer_dashboard/jobs/:jobId" element={<JobDetails />} />
         <Route path='/applicant_profile/:id' element={<ApplicantProfile/>}/>
+        <Route path='/check' element= {<Register/>}/>
 
       </Routes>
     </>
