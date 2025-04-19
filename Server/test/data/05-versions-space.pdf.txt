@@ -1,0 +1,42 @@
+
+
+SDE	Jobs	and	Internships
+https://topmate.io/sdejobsandinternships
+Billed	to
+Abhijeet	Srivastava
+shivamsrivastava2189@gmail.com
+Invoice	number
+INV/2025/4/274282/1068473/154110
+Invoice	date
+2025-04-17
+RECEIPT
+ITEM	DETAILQTYRATEDISCOUNTAMOUNT
+Referrals	for	Internships	and	jobs	(3
+Month)
+1INR	299.0INR	0.0INR
+299.0
+SubtotalINR	299.0
+Grand	Total	(Incl.Tax)INR	299.0
+
+KAVALRY	TECHNOLOGIES	PRIVATE	LIMITED
+GST	-	08AAICK5757B1ZG
+Kishan	Marg,	P.No.C-53,Barkat	Nagar	Ext.,	Arjun
+Nagar	RailwayPhatak,	Tonk	Road,	Jaipur,	Jaipur,
+Rajasthan,	302015
+Billed	to
+Abhijeet	Srivastava
+shivamsrivastava2189@gmail.com
+Invoice	number
+TF/2025/4/274282/1068473/154110
+Invoice	date
+2025-04-17
+TAX	INVOICE
+ITEM	DETAILQTYRATEDISCOUNTAMOUNT
+Platform	Fees
+1INR	8.2INR	0INR	8.2
+SubtotalINR	8.2
+Tax	(18%)
+CGST(9%)
+SGST(9%)
+INR	1.8
+Grand	Total	(Incl.Tax)INR	10

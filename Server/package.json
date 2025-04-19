@@ -6,7 +6,8 @@
     "type": "module",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon index.js"
+        "start": "nodemon index.js",
+        "debug:pdf": "cross-env PDF_DEBUG=true node pdf-debug.mjs"
     },
     "keywords": [
         "Aurjobs",
@@ -16,8 +17,12 @@
     "author": "Aurjobs Team",
     "license": "ISC",
     "dependencies": {
+        "@aws-sdk/client-s3": "^3.787.0",
+        "@aws-sdk/s3-request-presigner": "^3.787.0",
         "@supabase/supabase-js": "^2.48.1",
         "@xenova/transformers": "^2.17.2",
+        "aws-sdk": "^2.1692.0",
+        "axios": "^1.8.4",
         "bcrypt": "^5.1.1",
         "cookie-parser": "^1.4.7",
         "cors": "^2.8.5",
@@ -28,6 +33,7 @@
         "jsonwebtoken": "^9.0.2",
         "lodash": "^4.17.21",
         "multer": "^1.4.5-lts.2",
+        "multer-s3": "^3.0.1",
         "nodemailer": "^6.10.0",
         "nodemon": "^3.1.9",
         "passport": "^0.7.0",
@@ -38,5 +44,8 @@
         "razorpay": "^2.9.6",
         "server": "^1.0.41",
         "sharp": "^0.33.5"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.3"
     }
 }
