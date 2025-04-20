@@ -2,7 +2,8 @@ import { s3 } from "../config/aws_s3_config.js"; // Adjust the path as necessary
 import dotenv from "dotenv";
 import multer from "multer";
 import multerS3 from "multer-s3";
-import pdfParse from 'pdf-parse';
+import pdfParse from 'pdf-parse/lib/pdf-parse.js';
+
 import { GetObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import axios from "axios";
 
@@ -57,6 +58,8 @@ export const pdfExtract = async(req, res) => {
     try {
         const resumeFiles = req.files.resumes || [];
         const jobDescFiles = req.files.job_desc || [];
+
+        console.log(resumeFiles, jobDescFiles);
 
         if (resumeFiles.length === 0 || jobDescFiles.length === 0) {
             return res.status(400).json({ error: "Both resumes and job description PDFs are required" });
