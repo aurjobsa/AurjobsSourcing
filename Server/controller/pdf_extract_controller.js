@@ -59,7 +59,7 @@ export const pdfExtract = async(req, res) => {
         const resumeFiles = req.files.resumes || [];
         const jobDescFiles = req.files.job_desc || [];
 
-        console.log(resumeFiles, jobDescFiles);
+        // console.log(resumeFiles, jobDescFiles);
 
         if (resumeFiles.length === 0 || jobDescFiles.length === 0) {
             return res.status(400).json({ error: "Both resumes and job description PDFs are required" });
@@ -164,9 +164,36 @@ export const pdfExtract = async(req, res) => {
 
     } catch (error) {
         console.error("Error processing PDFs:", error);
-        res.status(500).json({ error: error});
+
+        // Clean up all files from S3 if there's any error
+        const allUploadedFiles = [];
+
+        if (req.files && req.files.resumes) {
+            allUploadedFiles.push(...req.files.resumes);
+        }
+        if (req.files && req.files.job_desc) {
+            allUploadedFiles.push(...req.files.job_desc);
+        }
+
+        for (const file of allUploadedFiles) {
+            if (file.bucket && file.key) {
+                try {
+                    await deleteFileFromS3(file.bucket, file.key);
+                    // console.log(`Deleted ${file.key} from S3 during error cleanup`);
+                } catch (err) {
+                    console.error(`Failed to delete ${file.key} from S3 during error cleanup:`, err.message);
+                }
+            }
+        }
+
+        res.status(500).json({ error: error });
     }
-};
+}
+
+
+
+
+
 export const uploadMiddleware = upload;
 
 // export const pdfExtract = async(req, res) => {

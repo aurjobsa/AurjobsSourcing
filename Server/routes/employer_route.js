@@ -12,7 +12,7 @@ router.post("/Employer_Update_Profile/:id", updateEmployer); // Handle Employer 
 router.post(
     "/Job_Filters",
     uploadMiddleware.fields([
-        { name: "resumes", maxCount: 10 },
+        { name: "resumes", maxCount: 1000 },
         { name: "job_desc", maxCount: 1 }
     ]),
     pdfExtract
