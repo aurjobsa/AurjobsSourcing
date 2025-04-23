@@ -73,7 +73,7 @@ import { Search, Filter, RefreshCw, Briefcase, X, ChevronDown, ChevronUp } from 
 
 const ActiveJobs = memo(() => {
     const [jobs, setJobs] = useState([]);
-    console.log(jobs)
+    // console.log(jobs)
     const [filteredJobs, setFilteredJobs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);

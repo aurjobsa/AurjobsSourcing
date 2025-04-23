@@ -86,6 +86,7 @@ import ShortlistedCandidate from './section/ShortlistedCandidate';
 // import { UserCircle, BriefcaseIcon, ChevronLeft, ChevronRight } from 'lucide-react';
 // import EmployerProfile from './section/EmployerProfile';
 import { useLocation, useNavigate } from 'react-router-dom';
+import AIScreening from './section/AIScreening';
 
 
 const EmployerDashBoard = () => {
@@ -98,7 +99,8 @@ const EmployerDashBoard = () => {
   const navItems = [
     { id: 'profile', icon: UserCircle, label: 'Profile' },
     { id: 'job_post', icon: BriefcaseIcon, label: 'Job Post' },
-    { id: 'shortlisted_candidates', icon: UserCircle, label: 'Shortlisted Candidates' }
+    { id: 'shortlisted_candidates', icon: UserCircle, label: 'Shortlisted Candidates' },
+    { id: 'ai_screening', icon: BriefcaseIcon, label: 'AI Screening' }
   ];
 
   const location = useLocation();  // Hook to access location state
@@ -173,6 +175,7 @@ const EmployerDashBoard = () => {
         {activeSection === 'job_post' && <JobPost />}
         
         {activeSection === 'shortlisted_candidates' && <ShortlistedCandidate/>}
+        {activeSection === 'ai_screening' && <AIScreening />}
       </main>
     </div>
   );

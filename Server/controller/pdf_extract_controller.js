@@ -164,7 +164,7 @@ export const pdfExtract = async(req, res) => {
 
     } catch (error) {
         console.error("Error processing PDFs:", error);
-        res.status(500).json({ error: "Failed to process resumes" });
+        res.status(500).json({ error: error});
     }
 };
 export const uploadMiddleware = upload;
