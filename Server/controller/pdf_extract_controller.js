@@ -3,9 +3,32 @@ import dotenv from "dotenv";
 import multer from "multer";
 import multerS3 from "multer-s3";
 import pdfParse from 'pdf-parse/lib/pdf-parse.js';
-
 import { GetObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import axios from "axios";
+
+
+// Send 2 warm-up pings if needed
+const warmupAIModel = async() => {
+    try {
+        const dummyResume = "John Doe\nSoftware Developer with 2 years experience in Node.js, React.";
+        const dummyJD = "We are looking for a full-stack developer with experience in JavaScript, React, and Node.js.";
+
+        for (let i = 0; i < 2; i++) {
+            await axios.post("https://resumebuilder-rp4z.onrender.com/match/", {
+                resume: dummyResume,
+                job_desc: dummyJD,
+                prompt: "Warm-up request. Just initializing the model. No need to return accurate output."
+            }, {
+                headers: { "Content-Type": "application/json" },
+                withCredentials: true
+            });
+        }
+        console.log("AI model warmed up.");
+    } catch (err) {
+        console.warn("AI model warm-up failed (not critical):", err.message);
+    }
+};
+
 
 // Load environment variables
 dotenv.config();
@@ -56,6 +79,8 @@ const deleteFileFromS3 = async(bucket, key) => {
 
 export const pdfExtract = async(req, res) => {
     try {
+        await warmupAIModel();
+
         const resumeFiles = req.files.resumes || [];
         const jobDescFiles = req.files.job_desc || [];
 
