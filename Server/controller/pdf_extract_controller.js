@@ -139,12 +139,11 @@ export const pdfExtract = async(req, res) => {
   
   Provide a match score from 0 to 100 based on how well the candidate fits the role, giving realistic weight to key technical requirements and some consideration to soft skills and learning potential.
   
-  First, return both the match score and a brief review.
+  First, return  the match score.
   
   Then, extract the following fields from the resume and include them as key-value pairs directly in the same root-level object (do not nest them under any sub-object):
   
   - match_score
-  - review
   - name
   - location
   - gender (male or female)
